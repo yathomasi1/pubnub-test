@@ -23,7 +23,7 @@
 <script src="http://kevingleason.me/SimpleRTC/js/webrtc.js"></script>
 <script>
 	var video_out = document.getElementById("vid-box");
-	
+
 	function login(form) {
     var phone = window.phone = PHONE({
         number        : form.username.value || "Anonymous", // listen on username line else Anonymous
@@ -36,7 +36,13 @@
         session.ended(function(session) { video_out.innerHTML=''; });
     });
     return false;   // So the form does not submit.
-}
+	}
+
+	function makeCall(form){
+    if (!window.phone) alert("Login First!");
+    else phone.dial(form.number.value);
+    return false;
+	}
 	
 </script>
 </body>
