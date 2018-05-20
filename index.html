@@ -21,6 +21,23 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
 <script src="http://kevingleason.me/SimpleRTC/js/webrtc.js"></script>
-
+<script>
+	var video_out = document.getElementById("vid-box");
+	
+	function login(form) {
+    var phone = window.phone = PHONE({
+        number        : form.username.value || "Anonymous", // listen on username line else Anonymous
+        publish_key   : 'your_pub_key',
+        subscribe_key : 'your_sub_key',
+    }); 
+    phone.ready(function(){ form.username.style.background="#55ff5b"; });
+    phone.receive(function(session){
+        session.connected(function(session) { video_out.appendChild(session.video); });
+        session.ended(function(session) { video_out.innerHTML=''; });
+    });
+    return false;   // So the form does not submit.
+}
+	
+</script>
 </body>
 </html>
